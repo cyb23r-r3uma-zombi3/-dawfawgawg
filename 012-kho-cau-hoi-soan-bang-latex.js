@@ -1481,14 +1481,13 @@ document.getElementById('kho-nhap').addEventListener('click', function () {
 });
 
 // ---------- Đồng bộ đám mây tự động (Firebase Firestore) ----------
-const firebaseConfig = {
-  apiKey: "AIzaSyAcBxkfFNKXSsyOwRNj97Or8R43HavTRDc",
-  authDomain: "skyeduuuuuu.firebaseapp.com",
-  projectId: "skyeduuuuuu",
-  storageBucket: "skyeduuuuuu.firebasestorage.app",
-  messagingSenderId: "976681037656",
-  appId: "1:976681037656:web:f7b185c204fa55f781ff2d",
-  measurementId: "G-D9Y62VXSRT"
+const KHO_FIREBASE = {
+    apiKey: "AIzaSyBCl_5FHbsbShN_eWcsFtG29O8eXQNJWc0",
+    authDomain: "skyyyyedu.firebaseapp.com",
+    projectId: "skyyyyedu",
+    storageBucket: "skyyyyedu.firebasestorage.app",
+    messagingSenderId: "104577778934",
+    appId: "1:104577778934:web:f9fb9da7fe96a2b9b518d7"
 };
 (function () {
     const el = document.getElementById('kho-cloud');
