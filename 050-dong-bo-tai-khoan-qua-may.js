@@ -1,11 +1,10 @@
-
-        // =====================================================
+// =====================================================
         //  ĐỒNG BỘ TÀI KHOẢN QUA MÁY CHỦ
         //  Đặt địa chỉ máy chủ (ví dụ https://ten-may-chu.com). Để trống = chỉ lưu trên máy này.
         //  Học sinh đăng ký ở đâu, quản trị cũng thấy sau khi máy chủ nhận được tài khoản đó.
         // =====================================================
-        const MAY_CHU_TAI_KHOAN = 'https://skyedu-may-chuu-production.up.railway.app';   // ví dụ: 'https://ten-may-chu.com' (để trống = chỉ lưu trên máy này)
-        const KHOA_ANH_CHUP_DONG_BO = 'skyedu-anh-chup-dong-bo';
+        const MAY_CHU_TAI_KHOAN = 'https://dawfawgawg-production.up.railway.app/'.replace(/\/+$/, '');
+        const KHOA_ANH_CHUP_DONG_BO = 'skyedu-anh-chup-dong-bo|' + MAY_CHU_TAI_KHOAN;
         let anhChup = (function () {
             try { return new Map(JSON.parse(localStorage.getItem(KHOA_ANH_CHUP_DONG_BO) || '[]')); } catch (e) { return new Map(); }
         })();
@@ -111,10 +110,11 @@
         const nutDangKy = document.querySelector('#form-register button[type="submit"], #form-register .auth-submit');
         if (nutDangKy) { chayTruocKhi(nutDangKy); }
 
-        // Mở trang: kéo dữ liệu mới nhất; nếu có thay đổi thì làm mới giao diện quản trị
+        // Mở trang: kéo dữ liệu mới nhất và đẩy các tài khoản sẵn có trên máy lên máy chủ mới
         window.addEventListener('load', async function () {
             if (!mayChuBat()) { return; }
             const doi = await keoVeTuMayChu();
+            await dayLenMayChu();
             if (doi && typeof veQuanTri === 'function') { try { veQuanTri(); } catch (e) {} }
         });
 
@@ -124,4 +124,3 @@
             const doi = await keoVeTuMayChu();
             if (doi && typeof veQuanTri === 'function') { try { veQuanTri(); } catch (e2) {} }
         }, true);
-    

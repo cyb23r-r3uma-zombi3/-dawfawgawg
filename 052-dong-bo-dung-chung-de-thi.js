@@ -1,5 +1,4 @@
-
-        // =====================================================
+// =====================================================
         //  ĐỒNG BỘ DÙNG CHUNG: đề thi, kết quả, đợt/ca thi, đăng ký ca, mã truy cập
         //  Gộp theo mã từng mục: ai thêm mục nào thì mục đó được giữ lại, không ghi đè nhau.
         // =====================================================
@@ -16,11 +15,12 @@
 
         function dongBoBat() { return !!MAY_CHU_TAI_KHOAN; }
         function maMucDB(bo, x) { return bo.maDinh ? bo.maDinh(x) : (x.id || (x.caId + '|' + x.email)); }
+        function khoaAnhDB(n) { return 'skyedu-anh-' + n + '|' + MAY_CHU_TAI_KHOAN; }
         function docAnhDB(n) {
-            try { return new Map(JSON.parse(localStorage.getItem('skyedu-anh-' + n) || '[]')); } catch (e) { return new Map(); }
+            try { return new Map(JSON.parse(localStorage.getItem(khoaAnhDB(n)) || '[]')); } catch (e) { return new Map(); }
         }
         function luuAnhDB(n) {
-            try { localStorage.setItem('skyedu-anh-' + n, JSON.stringify(Array.from(ANH_CHUP_DONG_BO[n].entries()))); } catch (e) {}
+            try { localStorage.setItem(khoaAnhDB(n), JSON.stringify(Array.from(ANH_CHUP_DONG_BO[n].entries()))); } catch (e) {}
         }
         Object.keys(BO_DONG_BO).forEach(function (n) { ANH_CHUP_DONG_BO[n] = docAnhDB(n); DANG_DONG_BO[n] = false; });
 
@@ -92,6 +92,7 @@
             let coThayDoi = false;
             for (const n of Object.keys(BO_DONG_BO)) {
                 if (await keoDongBo(n)) { coThayDoi = true; }
+                await dayDongBo(n);
             }
             if (coThayDoi) {
                 if (typeof veQuanTri === 'function') { try { veQuanTri(); } catch (e) {} }
@@ -113,4 +114,3 @@
 
         window.addEventListener('load', function () { dongBoTatCa(); });
         setInterval(function () { dongBoTatCa(); }, 15000);
-    
